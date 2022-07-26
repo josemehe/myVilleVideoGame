@@ -1,36 +1,101 @@
 'tile'
-v = document.getElementById("villeTile");
-vContext = v.getContext("2d");
-var mapa = "tile.png";
-'draw tile'
-var tile = new Image();
-tile.src = mapa;
-tile.addEventListener("load", drawTile);
-function drawTile()
-{
-  vContext.drawImage(tile, 0, 0);
+var v = document.getElementById("villeTile");
+var vContext = v.getContext("2d");
+'load tile'
+var tile = {
+  url: "tile.png",
+  loadOk: false
 }
-'draw cow'
-var cow = new Image();
-cow.src = "cow.png";
-cow.addEventListener("load", drawCow)
-function drawCow()
+tile.image = new Image();
+tile.image.src = tile.url;
+tile.image.addEventListener("load", loadTile);
+function loadTile()
 {
-  vContext.drawImage(cow, 10, 10);
+  tile.loadOk = true;
+  draw();
 }
-'draw pig'
-var pig = new Image();
-pig.src = "pig.png";
-pig.addEventListener("load", drawPig)
-function drawPig()
+'load cow'
+var cow = {
+  url:"cow.png",
+  loadOK: false
+};
+
+cow.image = new Image();
+cow.image.src = cow.url;
+cow.image.addEventListener("load", loadCow)
+
+function loadCow()
 {
-  vContext.drawImage(pig, 10, 300);
+  cow.loadOk = true;
+  draw();
 }
-'draw chicken'
-var chicken = new Image();
-chicken.src = "chicken.png";
-chicken.addEventListener("load", drawChicken)
-function drawChicken()
+'load pig'
+var pig = {
+  url:"pig.png",
+  loadOk: false
+};
+
+pig.image = new Image();
+pig.image.src = "pig.png";
+pig.image.addEventListener("load", loadPig)
+function loadPig()
 {
-  vContext.drawImage(chicken, 300, 150);
+  pig.loadOk = true
+  draw()
+}
+'load chicken'
+var chicken = {
+  url:"chicken.png",
+  loadOk: false
+}
+chicken.image = new Image();
+chicken.image.src = "chicken.png";
+chicken.image.addEventListener("load", loadChicken)
+function loadChicken()
+{
+  chicken.loadOk = true
+  draw()
+}
+
+function draw()
+{
+  if (tile.loadOk)
+  {
+    vContext.drawImage(tile.image, 0, 0);
+  }
+  if (cow.loadOk)
+  {
+    for (var i = 0; i < 20; i++)
+    {
+      var x = random(0, 420)
+      var y = random(0, 420)
+      vContext.drawImage(cow.image, x, y);
+    }
+  }
+  if (pig.loadOk)
+  {
+    for (var i = 0; i < 5; i++)
+    {
+      var x = random(0, 420)
+      var y = random(0, 420)
+      vContext.drawImage(pig.image, x, y);
+    }
+  }
+  if (chicken.loadOk)
+  {
+    for (var i = 0; i < 5; i++)
+    {
+      var x = random(0, 420)
+      var y = random(0, 420)
+      vContext.drawImage(chicken.image, x, y);
+    }
+  }
+
+}
+
+function random(min, max)
+{
+ var result;
+ result = Math.floor(Math.random() * (max - min + 1)) + min;
+ return result;
 }
